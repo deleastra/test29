@@ -6,10 +6,17 @@
 		<h1>Questions</h1>
 		<form method='POST' action='/quiz/answer'>
 			{% csrf_token %}
-			<p id='1'>1. 1 Kg. = 1000 g. ?</p>
-			<input type='radio' id='id_yes_1' name='yes_1' value='yes'>Yes</input>
-		<input type='radio' id='id_no_1' name='no_1' value='no'>No</input>
+			{% for quiz in quiz_list %}
+			<p id={{ quiz.id }}>{{ quiz.id }}. {{ quiz.question }} </p>
+			<input type='radio' id='id_yes_1' name='answer_{{ quiz.id }}' value='yes'>Yes</input>
+			<input type='radio' id='id_no_1' name='answer_{{ quiz.id }}' value='no'>No</input>
+		{% endfor %}
 		<br><br><input type='submit' id='id_submit' value='submit'/>
+		<br>
 		</form>
+		{% if score %}
+		    <h2>Your score is {{ score }}.</h2>
+		   {% endif %}
+                <form action="/"><input type="submit" id='id_back' value="back" /></form>
 	</body>
 </html>
