@@ -1,15 +1,11 @@
 <html>
 	<head>
-		<title>Is this a quiz?</title>
+		<title>Answer or Question</title>
 	</head>
 	<body>
-		<h1>Questions</h1>
-		<form method='POST' action='/quiz/answer'>
-			{% csrf_token %}
-			<p id='1'>1. 1 Kg. = 1000 g. ?</p>
-			<input type='radio' id='id_yes_1' name='yes_1' value='yes'>Yes</input>
-		<input type='radio' id='id_no_1' name='no_1' value='no'>No</input>
-		<br><br><input type='submit' id='id_submit' value='submit'/>
-		</form>
+		<form action="quiz/create"><input type="submit" id='id_create' value="create question" /></form>
+		<form action="quiz/answer"><input type="submit" id='id_answer' value="go to answer" /></form>
 	</body>
 </html>
+
+
