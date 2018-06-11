@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <title>Is this a statistics?</title>
+  </head>
+  <body>
+    <h1>Statistics</h1>
+    <table id="id_quiz_statistics" style="width:66%" border="1">
+      <tr><th>Question</th><th>Correct</th> <th>incorrect</th></tr>
+      {% for quiz in quiz_list %}
+      <tr>
+	<td>{{ forloop.counter }}: {{ quiz.question }}</td>
+	<td>{{ quiz.correct }}</td>
+	<td>{{ quiz.incorrect }}</td>
+      </tr>       
+      {% endfor %}
+    </table>
+    <form action="/"><input type="submit" id='id_back' value="back" /></form>
+  </body>
+</html>

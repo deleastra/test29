@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', quiz_views.homepage, name='homepage'),
     path('quiz/answer', quiz_views.answer, name='answer'),
-    path('quiz/create', quiz_views.create, name='create')
+    path('quiz/create', quiz_views.create, name='create'),
+    path('quiz/statistics', quiz_views.statistic, name='create')
 ]
