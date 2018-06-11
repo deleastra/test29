@@ -1,7 +1,7 @@
 from django.urls import resolve
 from django.test import TestCase
 from quiz.views import homepage
-from .models import Quiz
+from quiz.models import Quiz
 
 # Create your tests here.
 
@@ -19,6 +19,20 @@ class QuizModelTests(TestCase):
         Quiz.objects.create(question='question', answer=True)
         saved_quiz = Quiz.objects.all()
         self.assertEqual(saved_quiz.count(), 1)
+
+    def test_quiz_model_can_count_correct_times(self):
+        Quiz.objects.create(question='question', answer=True)
+        saved_quiz = Quiz.objects.get(pk=1)
+        saved_quiz.correct += 1
+        saved_quiz.save(update_fields=["correct"])
+        self.assertEqual(saved_quiz.correct, 1)
+
+    def test_quiz_model_can_count_incorrect_times(self):
+        Quiz.objects.create(question='question', answer=True)
+        saved_quiz = Quiz.objects.get(pk=1)
+        saved_quiz.incorrect += 1
+        saved_quiz.save(update_fields=["incorrect"])
+        self.assertEqual(saved_quiz.incorrect, 1)
 
 class CreateQuizTest(TestCase):
     def test_create_page_can_create_quiz(self):
