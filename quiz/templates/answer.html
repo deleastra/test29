@@ -7,9 +7,13 @@
 		<form method='POST' action='/quiz/answer'>
 			{% csrf_token %}
 			{% for quiz in quiz_list %}
-			<p id={{ quiz.id }}>{{ quiz.id }}. {{ quiz.question }} </p>
-			<input type='radio' id='id_yes_1' name='answer_{{ quiz.id }}' value='yes'>Yes</input>
-			<input type='radio' id='id_no_1' name='answer_{{ quiz.id }}' value='no'>No</input>
+			<p id={{ forloop.counter0 }}>{{ quiz.id }}. {{ quiz.question }} </p>
+			<input type='radio' id='id_yes_{{ forloop.counter0 }}'
+			       name='answer_{{ quiz.id }}'
+			       value='yes'>Yes</input>
+			<input type='radio' id='id_no_{{ forloop.counter0 }}'
+			       name='answer_{{ quiz.id }}'
+			       value='no'>No</input>
 		{% endfor %}
 		<br><br><input type='submit' id='id_submit' value='submit'/>
 		<br>

@@ -20,23 +20,53 @@ class NewVisitorTest(LiveServerTestCase):
 
 
         # He notices website title and header.
-        self.assertIn('Is this a quiz?', self.browser.title)
-        header_text = self.browser.find_element_by_tag_name('h1').text
-        self.assertIn('Questions', header_text)
+        self.assertIn('Answer or Question', self.browser.title)
 
-        # He read a first question.
-        question_text = self.browser.find_element_by_id('1').text
-        self.assertEqual(question_text, '1. 1 Kg. = 1000 g. ?')
-        # He answer yes
-        radio = self.browser.find_element_by_id('id_yes_1')
-        radio.click()
+        # He want to create 3 questions.
+        # so click the create question button.
+        questions = [['Is 1 kg. = 1000 g.?', 'yes'],
+                     ['Is 1 day have 20 hours?', 'no'],
+                     ['Is 1 week have 7 days', 'yes']]
+
+        for question in questions:
+            # Click create question button.
+            button = self.browser.find_element_by_id('id_create')
+            button.click()
+            
+            # Ask question.
+            inputbox = self.browser.find_element_by_id('id_question')
+            inputbox.send_keys(question[0])
+
+            button = self.browser.find_element_by_id('id_' + question[1])
+            button.click()
+
+            # Submit question.
+            button = self.browser.find_element_by_id('id_submit')
+            button.click()
+
+        # After he create question then he go to answer questions.
+        button = self.browser.find_element_by_id('id_answer')
+        button.click()
+
+        answers = [['Is 1 kg. = 1000 g.?', 'yes'],
+                     ['Is 1 day have 20 hours?', 'no'],
+                     ['Is 1 week have 7 days', 'no']]
+        
+        for i in range(3):
+
+            # He read a question.
+            question_text = self.browser.find_element_by_id(i).text
+            self.assertEqual(question_text[3:], answers[i][0])
+
+            # then answer.
+            radio = self.browser.find_element_by_id('id_' + answers[i][1] + '_' + str(i))
+            radio.click()
 
         # Then he click submit button
         button = self.browser.find_element_by_id('id_submit')
         button.click()
 
-        # He has found 8 in answer textbox
-        answer = self.browser.find_element_by_tag_name('h2').text
-        self.assertEqual(answer, 'answer: 8')
-
+        # Score has showing
+        score = self.browser.find_element_by_tag_name('h2').text
+        self.assertEqual(score, 'Your score is 2.')
 
